@@ -64,7 +64,7 @@ def checkForVersionChange():
 
     versionJson = requests.get(newVersionData["url"]).json()
     # announce in telegram
-    sendTelegramMessage("""A new minecraft version is available: %s
+    sendTelegramMessage("""A new minecraft version is available: `%s`
 Type: `%s`
 Major release: `%s`
 """ % (newVersionData["id"],
