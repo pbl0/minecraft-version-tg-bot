@@ -66,10 +66,8 @@ def checkForVersionChange():
     # announce in telegram
     sendTelegramMessage("""A new minecraft version is available: `%s`
 Type: `%s`
-Major release: `%s`
 """ % (newVersionData["id"],
-       newVersionData["type"],
-       versionJson["assetIndex"]["id"]))
+       newVersionData["type"]))
     latestVersionAnnounced = newVersionData["id"]
 
 
