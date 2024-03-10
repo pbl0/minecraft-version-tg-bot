@@ -16,8 +16,8 @@ from threading import Timer
 import requests
 
 MANIFEST_URL = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
-TELEGRAM_CHAT_ID = '@<chat id>'
-TELEGRAM_BOT_TOKEN = '<token>'
+TELEGRAM_CHAT_ID = '{CHAT_ID}'
+TELEGRAM_BOT_TOKEN = '{TELEGRAM_TOKEN}'
 CHECK_DELAY = 60 * 5
 
 manifest = requests.get(MANIFEST_URL).json()

@@ -1,13 +1,34 @@
-image: "python:3.9"
+image: "python:3.11"
 
-before_script:
-  - python --version
-  - pip install -r requirements.txt
+
+variables:
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
 
 stages:
   - build
+  - package
 
 mypy:
   stage: build
   script:
+    - python --version
+    - pip install -r requirements.txt
     - python -m mypy *.py
+
+package:
+  stage: package
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /root/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /root/.docker/config.json
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${IMAGE_TAG}"
+      --use-new-run
+      --compressed-caching=false
+    - rm -rf /root/.docker
+  only:
+    - master
