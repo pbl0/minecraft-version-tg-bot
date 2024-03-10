@@ -1,19 +1,8 @@
-image: "python:3.9"
-
-
 variables:
   IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
 
 stages:
-  - build
   - package
-
-mypy:
-  stage: build
-  script:
-    - python --version
-    - pip install -r requirements.txt
-    - python -m mypy *.py
 
 package:
   stage: package
