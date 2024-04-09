@@ -20,7 +20,7 @@ TELEGRAM_CHAT_ID = '{CHAT_ID}'
 TELEGRAM_BOT_TOKEN = '{TELEGRAM_TOKEN}'
 CHECK_DELAY = 60 * 5
 
-print("Will poll every " + CHECK_DELAY + " seconds for a new version...")
+print("Will poll every " + str(CHECK_DELAY) + " seconds for a new version...")
 
 manifest = requests.get(MANIFEST_URL).json()
 
