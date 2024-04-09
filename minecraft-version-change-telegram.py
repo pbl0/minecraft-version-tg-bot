@@ -20,6 +20,8 @@ TELEGRAM_CHAT_ID = '{CHAT_ID}'
 TELEGRAM_BOT_TOKEN = '{TELEGRAM_TOKEN}'
 CHECK_DELAY = 60 * 5
 
+print("Will poll every " + CHECK_DELAY + " seconds for a new version...")
+
 manifest = requests.get(MANIFEST_URL).json()
 
 latestVersionAnnounced = manifest["latest"]["snapshot"]  # assume current latest version was already announced
@@ -51,10 +53,10 @@ def sendTelegramMessage(message):
 
 def checkForVersionChange():
     global latestVersionAnnounced, manifest
-    print("Checking for new version...")
+    # print("Checking for new version...")
     manifest = requests.get(MANIFEST_URL).json()
     if manifest["latest"]["snapshot"] == latestVersionAnnounced:
-        print("No new version found")
+        p# rint("No new version found")
         return
     print("New version found: %s" % manifest["latest"]["snapshot"])
     newVersionData = {}
