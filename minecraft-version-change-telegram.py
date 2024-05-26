@@ -56,7 +56,7 @@ def checkForVersionChange():
     # print("Checking for new version...")
     manifest = requests.get(MANIFEST_URL).json()
     if manifest["latest"]["snapshot"] == latestVersionAnnounced:
-        p# rint("No new version found")
+        #print("No new version found")
         return
     print("New version found: %s" % manifest["latest"]["snapshot"])
     newVersionData = {}
