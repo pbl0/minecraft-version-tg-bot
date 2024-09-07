@@ -17,9 +17,9 @@ This repository is a fork of [Minecraft Version Change Telegram Bot](https://git
 
 Setup:
 
-1. Create a Telegram channel/group and add your bot to it
+1. Create a Telegram channel/group and add your bot to it.
 2. Set config/chat_id.txt to your channel/group id.
-3. Set config/token.txt to your bot token
+3. Set config/token.txt to your bot token.
 4. Create and run the Podman (or Docker) container:
 
 ```bash
@@ -28,7 +28,7 @@ podman build -t minecraft-version-tg-bot .
 podman run --name minecraft-version-tg-bot -v=${PWD}/config/:/srv/bot/ minecraft-version-tg-bot
 ```
 
-5. Use podman generate to create a systemd service. (use [podman quadlets](https://www.redhat.com/sysadmin/quadlet-podman) instead if using Podman 4.4+)
+5. Use podman generate to create a systemd service (use [podman quadlets](https://www.redhat.com/sysadmin/quadlet-podman) instead if using Podman 4.4+):
 
 ```bash
 podman generate systemd --new --name minecraft-version-tg-bot > ~/.config/systemd/user/minecraft-version-tg-bot.service
