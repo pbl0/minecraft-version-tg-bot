@@ -8,11 +8,11 @@ This repository is a fork of [Minecraft Version Change Telegram Bot](https://git
 
 - **Date Forked:** 06-09-2024 (dd-mm-yyyy)
 
-### Changes
+### Changes of the fork
 
-- It now works as a oneshot instead of constantly running in the background.
+- Adapted to work as a oneshot instead of constantly running in the background.
 - Will store the last checked version in /srv/bot/lastversion.txt so the next time it knows if it needs to announce version changes or not.
-- The message format remains the same.
+- The message format and the general behavior remains the same.
 
 Setup:
 
@@ -34,6 +34,10 @@ podman generate systemd --new --name minecraft-version-tg-bot > ~/.config/system
 ```
 
 6. Create a minecraft-version-tg-bot.timer file with the desired onCalendar setting. There are examples of systemd service and timer on the [systemd/](systemd) folder.
+
+## TODO:
+
+- Include changelog url. Example: https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-1
 
 ## Original project demo
 
