@@ -13,6 +13,7 @@ This repository is a fork of [Minecraft Version Change Telegram Bot](https://git
 - Adapted to work as a oneshot instead of constantly running in the background.
 - Will store the last checked version in /srv/bot/lastversion.txt so the next time it knows if it needs to announce version changes or not.
 - The message format and the general behavior remains the same.
+- Updated this readme.
 
 Setup:
 
