@@ -11,38 +11,17 @@
 * This software is not affiliated with Mojang AB, the original developer of Minecraft.
 """
 import urllib.parse
-from threading import Timer
 
 import requests
 
 MANIFEST_URL = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
 TELEGRAM_CHAT_ID = '{CHAT_ID}'
 TELEGRAM_BOT_TOKEN = '{TELEGRAM_TOKEN}'
-CHECK_DELAY = 60 * 5
-
-print("Will poll every " + str(CHECK_DELAY) + " seconds for a new version...")
 
 manifest = requests.get(MANIFEST_URL).json()
 
-latestVersionAnnounced = manifest["latest"]["snapshot"]  # assume current latest version was already announced
-
-
-class PerpetualTimer:
-    def __init__(self, delay, executor):
-        self.delay = delay
-        self.executorFunction = executor
-        self.timer = Timer(self.delay, self.executor)
-
-    def executor(self):
-        self.executorFunction()
-        self.timer = Timer(self.delay, self.executor)
-        self.timer.start()
-
-    def start(self):
-        self.timer.start()
-
-    def cancel(self):
-        self.timer.cancel()
+initial_version = manifest["latest"]["snapshot"]  
+latestVersionAnnounced = None
 
 
 def sendTelegramMessage(message):
@@ -71,8 +50,31 @@ Type: `%s`
 """ % (newVersionData["id"],
        newVersionData["type"]))
     latestVersionAnnounced = newVersionData["id"]
+    create_version_file(latestVersionAnnounced)
+
+def create_version_file(version_id, filepath='/srv/bot/lastversion.txt'):
+    print('create_version_file')
+    # Create the file and write the version_id into it
+    with open(filepath, 'w') as file:
+        file.write(version_id)
+
+def get_version(filepath='/srv/bot/lastversion.txt'):
+    try:
+        # Try reading the file if it exists
+        with open(filepath, 'r') as file:
+            return file.read().strip()
+    except FileNotFoundError:
+        # File doesn't exist, return None and call the create function
+        return None
 
 
-print("Starting bot...")
-timer = PerpetualTimer(CHECK_DELAY, checkForVersionChange)
-timer.start()
+if __name__ == '__main__':
+    print("Starting bot...")
+    version = get_version()
+
+    if version is None:
+        create_version_file(initial_version)  # assume current latest version was already announced
+    else:
+        print("Current version:", version)
+        latestVersionAnnounced = version
+        checkForVersionChange()
